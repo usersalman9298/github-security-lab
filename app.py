@@ -14,9 +14,9 @@ def find_user():
     connection.execute("CREATE TABLE users (username TEXT)")
     connection.execute("INSERT INTO users VALUES ('student')")
 
-    # FIXED: SQL injection prevented using parameterized query
-   query = "SELECT username FROM users WHERE username = ?"
-rows = connection.execute(query, (username,)).fetchall()
+   # TEST ONLY: Intentionally vulnerable SQL query
+query = "SELECT username FROM users WHERE username = '" + username + "'"
+rows = connection.execute(query).fetchall()
 
     connection.close()
     return {"users": [row[0] for row in rows]}
